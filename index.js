@@ -125,6 +125,7 @@ class HashTable{
   }
 
   //set method created using "separate chaining" (stores collisions in an nested DS (array for this example))
+  //this method places a [key, value] inside the array, at the index, determined by the hash function
   //set accepts two parameters (key, value)
   set(key, value){
     //hashes the key to determine the index to put it in
@@ -138,6 +139,7 @@ class HashTable{
     this.keyMap[index].push([key, value]);
   }
 
+  //this method gets the value of the key that's passed as a parameter
   //get accepts one parameter (key)
   get(key){
     //hashes the key  to determine the index to look in
@@ -159,6 +161,48 @@ class HashTable{
     //otherwise, if key isn't found, return undefined
     return undefined;
   }
+
+  //loops through the hash table array and returns an array of keys in the table
+  keys(){
+    //make an array to store all the data
+    let keysArr = [];
+    //loop over entire keyMap
+    for(let i=0; i<this.keyMap.length; i++){
+      //if the keyMap has something in its indices {loop over the items in those indices}
+      if(this.keyMap[i]){
+        for(let j=0; j<this.keyMap[i].length; j++){
+          //if the array doesn't already have the key {push the key of the key-value pair into the array}
+          if(!keysArr.includes(this.keyMap[i][j][0])){
+            keysArr.push(this.keyMap[i][j][0]);
+          }
+          
+        }
+      }
+    }
+    //return keysArr
+    return keysArr;
+  }
+
+  //loops through the hash table array and returns an array of values in the table; this function handles duplicate values
+  values(){
+    //make an array to store all the data
+    let valuesArr = [];
+    //loop over entire keyMap
+    for(let i=0; i<this.keyMap.length; i++){
+      //if the keyMap has something in its indices {loop over the items in those indices}
+      if(this.keyMap[i]){
+        for(let j=0; j<this.keyMap[i].length; j++){
+          //if the array doesn't already have the value {push the value of the key-value pair into the array}
+          if(!valuesArr.includes(this.keyMap[i][j][1])){
+            valuesArr.push(this.keyMap[i][j][1]);
+          }
+          
+        }
+      }
+    }
+    //return valuesArr
+    return valuesArr;
+  }
   
 }
 
@@ -169,11 +213,26 @@ let ht = new HashTable();
 // console.log(ht.set("i love", "pizza"));
 
 let ht2 = new HashTable(17);
-ht2.set("maroon","#800000")
-ht2.set("yellow","#FFFF00")
-ht2.set("olive","#808000")
-ht2.set("salmon","#FA8072")
-ht2.set("lightcoral","#F08080")
-ht2.set("mediumvioletred","#C71585")
-ht2.set("plum","#DDA0DD")
-console.log(ht2.get("maroon"));
+ht2.set("maroon","#800000");
+ht2.set("yellow","#FFFF00");
+ht2.set("olive","#808000");
+ht2.set("salmon","#FA8072");
+ht2.set("lightcoral","#F08080");
+ht2.set("mediumvioletred","#C71585");
+ht2.set("plum","#DDA0DD");
+ht2.set("purple","#DDA0DD");
+ht2.set("violet","#DDA0DD");
+ht2.set("plum", "DOUBLE!!");
+// console.log(ht2.get("maroon"));
+// console.log(ht2.values());
+// console.log(ht2.keys());
+
+// The set function allows for duplicate keys, therefore get function will get the first duplicate key that was inserted.  Beware that most languages will overwrite duplicates
+
+ht.keys().forEach(function(key){
+  console.log(ht.get(key));
+})
+
+// ht.keys().forEach(key=>{
+//   console.log(ht.get(key));
+// })
