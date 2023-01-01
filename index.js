@@ -149,7 +149,7 @@ class HashTable{
     if(this.keyMap[index]){
       //loop through that index to find the key-value
       for(let i=0; i<this.keyMap[index].length; i++){
-        //if keyMap index's first item in its sub array equals key {return that sub array} (sub arrays are -->[ ['maroon', '#800000'] and ['yellow', '#FFFF00'] ]<--maroon and yellow are first items in subarrays) 
+        //if keyMap index's first item in its subarray equals key {return that subarray} (subarrays are -->[ ['maroon', '#800000'] and ['yellow', '#FFFF00'] ]<--maroon and yellow are first items in subarrays) 
         if(this.keyMap[index][i][0] === key){
           //return the entire subarray inside index:
           // return this.keyMap[index][i]
@@ -203,6 +203,25 @@ class HashTable{
     //return valuesArr
     return valuesArr;
   }
+
+  //this method deletes a key-value pair from an index in keyMap array
+  //delete accepts one parameter (key)
+  delete(key){
+    //determine the index of the key using the hash function
+    let index = this._hash(key);
+    //if the index has something in it {loop through that index}
+    if(this.keyMap[index]){
+      for(let i=0; i<this.keyMap[index].length; i++){
+        //if keyMap index's first item in its subarray equals key {remove that subarray} (subarrays are -->[ ['maroon', '#800000'] and ['yellow', '#FFFF00'] ]<--maroon and yellow are first items in subarrays) 
+        if(this.keyMap[index][i][0] === key){
+          //splice removes and returns that subarray; identify the index wanted in the if conditional and remove just one element (i,1)
+          return this.keyMap[index].splice(i, 1);
+        }
+      }
+    }
+    //return undefined if key not found
+    return undefined;
+    }
   
 }
 
